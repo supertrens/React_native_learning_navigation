@@ -1,15 +1,22 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { View, StyleSheet, FlatList } from "react-native";
 import CategoryGridTile from "../components/CategoryGridTile";
 import { CATEGORIES } from "../data/dummy";
 
-function renderItem({ item }) {
-  return (
-    <CategoryGridTile title={item.title} color={item.color} id={item.id} />
-  );
-}
+const CategoryScreen = ({ navigation }) => {
+  const onCategoryClickHandler = useCallback((categoryId, title) => {
+    navigation.navigate("MealsOverviewScreen", { categoryId, title });
+  }, []);
 
-const CategoryScreen = () => {
+  const renderItem = ({ item }) => (
+    <CategoryGridTile
+      title={item.title}
+      color={item.color}
+      id={item.id}
+      onPress={onCategoryClickHandler}
+    />
+  );
+
   return (
     <View style={styles.container}>
       <FlatList
