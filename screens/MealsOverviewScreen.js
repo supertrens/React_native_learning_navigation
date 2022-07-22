@@ -8,10 +8,9 @@ const MealsOverviewScreen = ({ route, navigation }) => {
 
   const meals = MEALS.filter((meal) => meal.categoryIds.includes(categoryId));
 
-  const onNavigateToMealDetail = (meal) => {
+  const onNavigateToMealDetail = (mealId) => {
     navigation.navigate("MealDetailScreen", {
-      title: meal.title,
-      data: meal,
+      mealId,
     });
   };
 

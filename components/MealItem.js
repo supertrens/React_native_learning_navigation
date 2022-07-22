@@ -12,7 +12,7 @@ const MealItem = ({ item, onPress }) => {
   return (
     <View style={styles.mealItem}>
       <Pressable
-        onPress={() => onPress(item)}
+        onPress={() => onPress(item.id)}
         android_ripple="#ccc"
         style={({ pressed }) => [
           styles.button,
