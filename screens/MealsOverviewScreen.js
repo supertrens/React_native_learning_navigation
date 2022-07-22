@@ -3,20 +3,12 @@ import { View, FlatList, StyleSheet } from "react-native";
 import MealItem from "../components/MealItem";
 import { MEALS } from "../data/dummy";
 
-const MealsOverviewScreen = ({ route, navigation }) => {
+const MealsOverviewScreen = ({ route }) => {
   const { categoryId } = route.params;
 
   const meals = MEALS.filter((meal) => meal.categoryIds.includes(categoryId));
 
-  const onNavigateToMealDetail = (mealId) => {
-    navigation.navigate("MealDetailScreen", {
-      mealId,
-    });
-  };
-
-  const renderMealItem = ({ item }) => (
-    <MealItem item={item} onPress={onNavigateToMealDetail} />
-  );
+  const renderMealItem = ({ item }) => <MealItem item={item} />;
 
   return (
     <View style={styles.container}>

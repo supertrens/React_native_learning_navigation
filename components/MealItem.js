@@ -7,12 +7,20 @@ import {
   Image,
   Platform,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import MealDetails from "./MealDetails";
 
-const MealItem = ({ item, onPress }) => {
+const MealItem = ({ item }) => {
+  const navigation = useNavigation();
+
+  const onNavigateToMealDetail = () => {
+    navigation.navigate("MealDetailScreen", { mealId: item.id });
+  };
+
   return (
     <View style={styles.mealItem}>
       <Pressable
-        onPress={() => onPress(item.id)}
+        onPress={onNavigateToMealDetail}
         android_ripple="#ccc"
         style={({ pressed }) => [
           styles.button,
@@ -24,15 +32,11 @@ const MealItem = ({ item, onPress }) => {
             <Image source={{ uri: item.imageUrl }} style={styles.image} />
             <Text style={styles.title}>{item.title}</Text>
           </View>
-          <View style={styles.details}>
-            <Text style={styles.detailItem}>{item.duration}m</Text>
-            <Text style={styles.detailItem}>
-              {item.complexity.toUpperCase()}
-            </Text>
-            <Text style={styles.detailItem}>
-              {item.affordability.toUpperCase()}
-            </Text>
-          </View>
+          <MealDetails
+            duration={item.duration}
+            complexity={item.complexity}
+            affordability={item.affordability}
+          />
         </View>
       </Pressable>
     </View>
@@ -56,17 +60,6 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowRadius: 8,
     overflow: Platform.OS === "android" ? "hidden" : "visible",
-  },
-  details: {
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    padding: 8,
-  },
-
-  detailItem: {
-    marginHorizontal: 8,
-    fontSize: 12,
   },
 
   image: {
