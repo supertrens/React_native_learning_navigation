@@ -1,14 +1,23 @@
 import React from "react";
-import { View, Text, FlatList, StyleSheet } from "react-native";
+import { View, FlatList, StyleSheet } from "react-native";
 import MealItem from "../components/MealItem";
 import { MEALS } from "../data/dummy";
 
-const MealsOverviewScreen = ({ route }) => {
+const MealsOverviewScreen = ({ route, navigation }) => {
   const { categoryId } = route.params;
 
   const meals = MEALS.filter((meal) => meal.categoryIds.includes(categoryId));
 
-  const renderMealItem = ({ item }) => <MealItem item={item} />;
+  const onNavigateToMealDetail = (meal) => {
+    navigation.navigate("MealDetailScreen", {
+      title: meal.title,
+      data: meal,
+    });
+  };
+
+  const renderMealItem = ({ item }) => (
+    <MealItem item={item} onPress={onNavigateToMealDetail} />
+  );
 
   return (
     <View style={styles.container}>
