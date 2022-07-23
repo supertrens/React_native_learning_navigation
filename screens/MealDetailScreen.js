@@ -1,5 +1,7 @@
 import React, { useLayoutEffect } from "react";
-import { View, Text, Image, StyleSheet } from "react-native";
+import { View, Text, Image, StyleSheet, ScrollView } from "react-native";
+import List from "../components/MealDetail/List";
+import Subtitle from "../components/MealDetail/Subtitle";
 import MealDetails from "../components/MealDetails";
 
 import { MEALS } from "../data/dummy";
@@ -20,7 +22,7 @@ const MealDetailScreen = ({ route, navigation }) => {
   }, [navigation]);
 
   return (
-    <View>
+    <ScrollView style={styles.rootContainer}>
       <Image source={{ uri: imageUrl }} style={styles.image} />
       <Text style={styles.title}> {title}</Text>
       <MealDetails
@@ -28,41 +30,33 @@ const MealDetailScreen = ({ route, navigation }) => {
         complexity={complexity}
         affordability={affordability}
       />
-      <Text style={styles.title}>Ingredients</Text>
-      <View>
-        {ingredients.map((ingredient) => (
-          <Text key={ingredient}> {ingredient}</Text>
-        ))}
+      <View style={styles.listContainer}>
+        <Subtitle>Ingredients</Subtitle>
+        <List data={ingredients} />
+        <Subtitle>Steps</Subtitle>
+        <List data={steps} />
       </View>
-
-      <Text style={styles.title}>Steps</Text>
-      {steps.map((step) => (
-        <Text key={step}> {step}</Text>
-      ))}
-    </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
+  rootContainer: {
+    marginBottom: 32,
+  },
   image: {
-    height: 300,
+    height: 350,
     width: "100%",
   },
   title: {
     textAlign: "center",
-    fontSize: 22,
+    fontSize: 24,
     fontWeight: "bold",
+    margin: 8,
   },
-  details: {
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    padding: 8,
-  },
-
-  detailItem: {
-    marginHorizontal: 8,
-    fontSize: 12,
+  listContainer: {
+    width: "80%",
+    alignSelf: "center",
   },
 });
 
