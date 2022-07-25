@@ -1,5 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
+
 const List = ({ data }) => {
   return data.map((item) => (
     <View key={item} style={styles.listItem}>

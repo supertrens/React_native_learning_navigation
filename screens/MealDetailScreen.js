@@ -1,23 +1,24 @@
-import React, { useLayoutEffect, useState } from "react";
-import {
-  View,
-  Text,
-  Button,
-  Image,
-  StyleSheet,
-  ScrollView,
-} from "react-native";
+import React, { useContext, useLayoutEffect } from "react";
+import { View, Text, Image, StyleSheet, ScrollView } from "react-native";
 import List from "../components/MealDetail/List";
 import Subtitle from "../components/MealDetail/Subtitle";
 import MealDetails from "../components/MealDetails";
 import IconButton from "../components/IconButton";
 
 import { MEALS } from "../data/dummy";
+import { FavoritesContext } from "../store/context/favorites-context";
 
 const MealDetailScreen = ({ route, navigation }) => {
-  const [isFavorite, setIsFavorite] = useState(false);
-
   const { mealId } = route.params;
+
+  const {
+    removeFavorite,
+    addFavorite,
+    ids: favoritesIds,
+  } = useContext(FavoritesContext);
+
+  const isFavorite = favoritesIds.some((id) => id === mealId);
+  console.log("IS FAVORITE: ", isFavorite, favoritesIds);
   const {
     title,
     imageUrl,
@@ -28,8 +29,8 @@ const MealDetailScreen = ({ route, navigation }) => {
     affordability,
   } = MEALS.find((meal) => meal.id === mealId);
 
-  const onAddFavoriteHandler = () => {
-    setIsFavorite((prevState) => !prevState);
+  const onToggleFavorite = () => {
+    isFavorite ? removeFavorite(mealId) : addFavorite(mealId);
   };
 
   useLayoutEffect(() => {
@@ -37,13 +38,13 @@ const MealDetailScreen = ({ route, navigation }) => {
       title,
       headerRight: () => (
         <IconButton
-          onPress={onAddFavoriteHandler}
+          onPress={onToggleFavorite}
           icon={isFavorite ? "ios-star" : "ios-star-outline"}
           color="white"
         />
       ),
     });
-  }, [navigation, isFavorite]);
+  }, [navigation, isFavorite, onToggleFavorite]);
 
   return (
     <ScrollView style={styles.rootContainer}>
