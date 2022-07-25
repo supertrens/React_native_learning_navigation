@@ -18,7 +18,6 @@ const MealDetailScreen = ({ route, navigation }) => {
   } = useContext(FavoritesContext);
 
   const isFavorite = favoritesIds.some((id) => id === mealId);
-  console.log("IS FAVORITE: ", isFavorite, favoritesIds);
   const {
     title,
     imageUrl,
