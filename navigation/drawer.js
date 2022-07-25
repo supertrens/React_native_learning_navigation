@@ -1,7 +1,8 @@
 import { createDrawerNavigator } from "@react-navigation/drawer";
+import { Ionicons } from "@expo/vector-icons";
+
 import FavoriteScreen from "../screens/FavoriteScreen";
 import CategoriesScreen from "../screens/CategoriesScreen";
-import { Ionicons } from "@expo/vector-icons";
 
 const Drawer = createDrawerNavigator();
 

@@ -1,6 +1,7 @@
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+
 import MealsOverviewScreen from "../screens/MealsOverviewScreen";
 import MealDetailScreen from "../screens/MealDetailScreen";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import DrawerNavigator from "./drawer";
 
 const Stack = createNativeStackNavigator();
